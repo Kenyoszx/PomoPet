@@ -1,10 +1,14 @@
 package com.pomopet.view;
+
+import java.awt.Desktop;
+import java.net.URI;
 import com.pomopet.data.GerenciadorAmigos;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 public class TelaAmigos extends javax.swing.JFrame {
     
+    final String URL_DESTINO = "https://bit.ly/m/PomoPets";
     
     public TelaAmigos() {
         initComponents();
@@ -46,6 +50,9 @@ public class TelaAmigos extends javax.swing.JFrame {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(290, 0), new java.awt.Dimension(32767, 0));
         Footer = new javax.swing.JPanel();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        lblLinkWebsite = new javax.swing.JLabel();
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(176, 224, 230));
@@ -169,20 +176,32 @@ public class TelaAmigos extends javax.swing.JFrame {
         getContentPane().add(Main, java.awt.BorderLayout.CENTER);
 
         Footer.setBackground(new java.awt.Color(51, 51, 51));
+        Footer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Footer.setMaximumSize(new java.awt.Dimension(2440, 50));
         Footer.setMinimumSize(new java.awt.Dimension(1280, 50));
         Footer.setPreferredSize(new java.awt.Dimension(1280, 50));
+        Footer.setLayout(new javax.swing.BoxLayout(Footer, javax.swing.BoxLayout.LINE_AXIS));
+        Footer.add(filler9);
 
-        javax.swing.GroupLayout FooterLayout = new javax.swing.GroupLayout(Footer);
-        Footer.setLayout(FooterLayout);
-        FooterLayout.setHorizontalGroup(
-            FooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1289, Short.MAX_VALUE)
-        );
-        FooterLayout.setVerticalGroup(
-            FooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        lblLinkWebsite.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblLinkWebsite.setForeground(new java.awt.Color(211, 211, 211));
+        lblLinkWebsite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+        lblLinkWebsite.setAlignmentX(0.5F);
+        lblLinkWebsite.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseExited(evt);
+            }
+        });
+        Footer.add(lblLinkWebsite);
+        Footer.add(filler12);
 
         getContentPane().add(Footer, java.awt.BorderLayout.SOUTH);
 
@@ -236,6 +255,37 @@ public class TelaAmigos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRmvAmigoActionPerformed
 
+    private void lblLinkWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseClicked
+        try {
+            // Tenta verificar se a API Desktop é suportada
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+
+                // Abre o URL no navegador padrão
+                Desktop.getDesktop().browse(new URI(URL_DESTINO));
+            } else {
+                // Mensagem se a abertura automática não for suportada (raro em desktops)
+                JOptionPane.showMessageDialog(null,
+                    "Não foi possível abrir o link automaticamente. Acesse: " + URL_DESTINO,
+                    "Abrir Link",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception ex) {
+            // Trata erros como URL malformado ou falha de sistema
+            JOptionPane.showMessageDialog(null,
+                "Erro ao tentar abrir o link: " + ex.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lblLinkWebsiteMouseClicked
+
+    private void lblLinkWebsiteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseEntered
+        lblLinkWebsite.setText("<html><u>Desenvolvido por PomoPets ©</u></html>");
+    }//GEN-LAST:event_lblLinkWebsiteMouseEntered
+
+    private void lblLinkWebsiteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseExited
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+    }//GEN-LAST:event_lblLinkWebsiteMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -284,11 +334,14 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblLinkWebsite;
     private javax.swing.JList<String> lstAmigos;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,9 +3,16 @@ package com.pomopet.view;
 import com.pomopet.data.User;
 import com.pomopet.data.GerenciadorUsuario;
 import javax.swing.JOptionPane;
+import java.awt.Desktop;
+import java.net.URI;
+import javax.swing.JOptionPane;
+import java.awt.Cursor;
+
 
 public class TelaLogin extends javax.swing.JFrame {
-
+    
+    final String URL_DESTINO = "https://bit.ly/m/PomoPets";
+    
     public TelaLogin() {
         initComponents();
     }
@@ -34,7 +41,9 @@ public class TelaLogin extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         Footer = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        lblLinkWebsite = new javax.swing.JLabel();
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(176, 224, 230));
@@ -101,7 +110,8 @@ public class TelaLogin extends javax.swing.JFrame {
         FormBox.add(jLabel3);
 
         txtUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtUsuario.setMaximumSize(new java.awt.Dimension(250, 40));
+        txtUsuario.setMaximumSize(new java.awt.Dimension(250, 30));
+        txtUsuario.setPreferredSize(new java.awt.Dimension(250, 30));
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -120,7 +130,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel4.setMinimumSize(new java.awt.Dimension(60, 25));
         FormBox.add(jLabel4);
 
-        pfSenha.setMaximumSize(new java.awt.Dimension(250, 40));
+        pfSenha.setMaximumSize(new java.awt.Dimension(250, 30));
+        pfSenha.setPreferredSize(new java.awt.Dimension(250, 30));
         FormBox.add(pfSenha);
 
         Buttons.setBackground(new java.awt.Color(240, 255, 240));
@@ -129,6 +140,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         btnLogin.setBackground(new java.awt.Color(255, 140, 0));
         btnLogin.setText("Login");
+        btnLogin.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLogin.setMinimumSize(new java.awt.Dimension(70, 30));
+        btnLogin.setPreferredSize(new java.awt.Dimension(100, 40));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -138,6 +152,9 @@ public class TelaLogin extends javax.swing.JFrame {
 
         btnCadastro.setBackground(new java.awt.Color(255, 140, 0));
         btnCadastro.setText("Cadastre-se");
+        btnCadastro.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnCadastro.setMinimumSize(new java.awt.Dimension(90, 30));
+        btnCadastro.setPreferredSize(new java.awt.Dimension(100, 40));
         btnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroActionPerformed(evt);
@@ -161,13 +178,28 @@ public class TelaLogin extends javax.swing.JFrame {
         Footer.setMaximumSize(new java.awt.Dimension(2440, 50));
         Footer.setMinimumSize(new java.awt.Dimension(1280, 50));
         Footer.setPreferredSize(new java.awt.Dimension(1280, 50));
-        Footer.setLayout(new java.awt.BorderLayout());
+        Footer.setLayout(new javax.swing.BoxLayout(Footer, javax.swing.BoxLayout.LINE_AXIS));
+        Footer.add(filler5);
 
-        jLabel5.setForeground(new java.awt.Color(211, 211, 211));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Desenvolvido Por ...");
-        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Footer.add(jLabel5, java.awt.BorderLayout.CENTER);
+        lblLinkWebsite.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblLinkWebsite.setForeground(new java.awt.Color(211, 211, 211));
+        lblLinkWebsite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+        lblLinkWebsite.setAlignmentX(0.5F);
+        lblLinkWebsite.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseExited(evt);
+            }
+        });
+        Footer.add(lblLinkWebsite);
+        Footer.add(filler7);
 
         getContentPane().add(Footer, java.awt.BorderLayout.SOUTH);
 
@@ -236,6 +268,37 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
+    private void lblLinkWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseClicked
+        try {
+                // Tenta verificar se a API Desktop é suportada
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    
+                    // Abre o URL no navegador padrão
+                    Desktop.getDesktop().browse(new URI(URL_DESTINO));
+                } else {
+                    // Mensagem se a abertura automática não for suportada (raro em desktops)
+                    JOptionPane.showMessageDialog(null, 
+                        "Não foi possível abrir o link automaticamente. Acesse: " + URL_DESTINO, 
+                        "Abrir Link", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception ex) {
+                // Trata erros como URL malformado ou falha de sistema
+                JOptionPane.showMessageDialog(null, 
+                    "Erro ao tentar abrir o link: " + ex.getMessage(), 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_lblLinkWebsiteMouseClicked
+
+    private void lblLinkWebsiteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseEntered
+        lblLinkWebsite.setText("<html><u>Desenvolvido por PomoPets ©</u></html>");
+    }//GEN-LAST:event_lblLinkWebsiteMouseEntered
+
+    private void lblLinkWebsiteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseExited
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+    }//GEN-LAST:event_lblLinkWebsiteMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -284,12 +347,14 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
+    private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
+    private javax.swing.Box.Filler filler7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblLinkWebsite;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JTextField txtUsuario;

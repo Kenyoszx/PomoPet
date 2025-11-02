@@ -1,5 +1,7 @@
 package com.pomopet.view;
 
+import java.awt.Desktop;
+import java.net.URI;
 import com.pomopet.data.User;
 import com.pomopet.data.GerenciadorUsuario;
 import javax.swing.JOptionPane;
@@ -10,7 +12,9 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 public class TelaCadastro extends javax.swing.JFrame {
-
+    
+    final String URL_DESTINO = "https://bit.ly/m/PomoPets";
+    
     public TelaCadastro() {
         initComponents();
     }
@@ -97,10 +101,13 @@ private boolean isDataValida(String dataStr) {
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         Footer = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        lblLinkWebsite = new javax.swing.JLabel();
+        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 675));
+        setPreferredSize(new java.awt.Dimension(1280, 800));
 
         Header.setBackground(new java.awt.Color(51, 51, 51));
         Header.setMaximumSize(new java.awt.Dimension(32767, 50));
@@ -238,9 +245,9 @@ private boolean isDataValida(String dataStr) {
 
         btnCadastro.setBackground(new java.awt.Color(255, 140, 0));
         btnCadastro.setText("Concluir Cadastro");
-        btnCadastro.setMaximumSize(new java.awt.Dimension(125, 40));
-        btnCadastro.setMinimumSize(new java.awt.Dimension(125, 40));
-        btnCadastro.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnCadastro.setMaximumSize(new java.awt.Dimension(130, 40));
+        btnCadastro.setMinimumSize(new java.awt.Dimension(130, 40));
+        btnCadastro.setPreferredSize(new java.awt.Dimension(130, 40));
         btnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroActionPerformed(evt);
@@ -251,9 +258,9 @@ private boolean isDataValida(String dataStr) {
 
         btnVoltar.setBackground(new java.awt.Color(255, 140, 0));
         btnVoltar.setText("Voltar");
-        btnVoltar.setMaximumSize(new java.awt.Dimension(72, 40));
-        btnVoltar.setMinimumSize(new java.awt.Dimension(72, 40));
-        btnVoltar.setPreferredSize(new java.awt.Dimension(72, 40));
+        btnVoltar.setMaximumSize(new java.awt.Dimension(130, 40));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(130, 40));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(130, 40));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -270,14 +277,32 @@ private boolean isDataValida(String dataStr) {
         getContentPane().add(Main, java.awt.BorderLayout.CENTER);
 
         Footer.setBackground(new java.awt.Color(51, 51, 51));
-        Footer.setMaximumSize(new java.awt.Dimension(32767, 50));
+        Footer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Footer.setMaximumSize(new java.awt.Dimension(2440, 50));
+        Footer.setMinimumSize(new java.awt.Dimension(1280, 50));
         Footer.setPreferredSize(new java.awt.Dimension(1280, 50));
-        Footer.setLayout(new java.awt.BorderLayout());
+        Footer.setLayout(new javax.swing.BoxLayout(Footer, javax.swing.BoxLayout.LINE_AXIS));
+        Footer.add(filler9);
 
-        jLabel2.setForeground(new java.awt.Color(211, 211, 211));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Desenvolvido por...");
-        Footer.add(jLabel2, java.awt.BorderLayout.CENTER);
+        lblLinkWebsite.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        lblLinkWebsite.setForeground(new java.awt.Color(211, 211, 211));
+        lblLinkWebsite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+        lblLinkWebsite.setAlignmentX(0.5F);
+        lblLinkWebsite.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblLinkWebsite.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLinkWebsiteMouseExited(evt);
+            }
+        });
+        Footer.add(lblLinkWebsite);
+        Footer.add(filler10);
 
         getContentPane().add(Footer, java.awt.BorderLayout.SOUTH);
 
@@ -358,6 +383,37 @@ private boolean isDataValida(String dataStr) {
         this.dispose(); 
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void lblLinkWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseClicked
+        try {
+            // Tenta verificar se a API Desktop é suportada
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+
+                // Abre o URL no navegador padrão
+                Desktop.getDesktop().browse(new URI(URL_DESTINO));
+            } else {
+                // Mensagem se a abertura automática não for suportada (raro em desktops)
+                JOptionPane.showMessageDialog(null,
+                    "Não foi possível abrir o link automaticamente. Acesse: " + URL_DESTINO,
+                    "Abrir Link",
+                    JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception ex) {
+            // Trata erros como URL malformado ou falha de sistema
+            JOptionPane.showMessageDialog(null,
+                "Erro ao tentar abrir o link: " + ex.getMessage(),
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_lblLinkWebsiteMouseClicked
+
+    private void lblLinkWebsiteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseEntered
+        lblLinkWebsite.setText("<html><u>Desenvolvido por PomoPets ©</u></html>");
+    }//GEN-LAST:event_lblLinkWebsiteMouseEntered
+
+    private void lblLinkWebsiteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseExited
+        lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
+    }//GEN-LAST:event_lblLinkWebsiteMouseExited
+
   
     public static void main(String args[]) {
         
@@ -380,6 +436,7 @@ private boolean isDataValida(String dataStr) {
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnVoltar;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -387,9 +444,9 @@ private boolean isDataValida(String dataStr) {
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -398,6 +455,7 @@ private boolean isDataValida(String dataStr) {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLinkWebsite;
     private javax.swing.JPasswordField pfConfirmacaoSenha;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JRadioButton rbFeminino;
