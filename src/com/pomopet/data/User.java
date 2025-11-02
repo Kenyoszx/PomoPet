@@ -1,6 +1,9 @@
 package com.pomopet.data;
 
 public class User extends Student {
+    
+    // Atributos ->
+    
     private String email;
     private String password;
     private String birthDate;

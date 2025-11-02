@@ -150,7 +150,8 @@ public class TelaEscolherPet extends javax.swing.JFrame {
     
     private void selecionarPet(String especie) {
         
-        // 1. Cria a instância correta
+        // Cria a instância correta-> 
+        
         switch (especie) {
             case "Lumi":
                 petSelecionado = new Lumi();
@@ -167,35 +168,27 @@ public class TelaEscolherPet extends javax.swing.JFrame {
         
         especieSelecionada = especie;
         
-        // 2. Atualiza o destaque visual (ALTAMENTE RECOMENDADO!)
+        // Destaca o botão e libera o botão de escolher
         atualizarDestaqueVisual();
-        
-        // 3. Ativa o botão de confirmação
         btnChoose.setEnabled(true);
     }
     
     // Método para mudar visualmente qual botão foi clicado
     private void atualizarDestaqueVisual() {
-        // Assume que você tem um BorderFactory para destaque (exemplo)
-        // Seus botões estão no design como: btnLumi, btnSabine, btnYami
         
-        // Limpa todas as bordas/cores
+        // Limpa todas as bordas/cores ->
         btnLumi.setBorder(null);
         btnSabine.setBorder(null);
         btnYami.setBorder(null);
         
-        // Aplica o destaque na seleção
+        // Aplica o destaque na seleção _>
+        
         if (especieSelecionada != null) {
-             // Exemplo de como aplicar uma borda ou cor de fundo na seleção
-             // Você precisará importar java.awt.Color e javax.swing.border.Border
-             // e talvez usar um JPanel ao invés de JButton se a imagem estiver no botão
-             
-             // Se os componentes forem JButtons:
              JButton botao = null;
              if (especieSelecionada.equals("Lumi")) botao = btnLumi;
              else if (especieSelecionada.equals("Sabine")) botao = btnSabine;
              else if (especieSelecionada.equals("Yami")) botao = btnYami;
-
+             
              if (botao != null) {
                  botao.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.ORANGE, 3));
              }
@@ -208,20 +201,20 @@ public class TelaEscolherPet extends javax.swing.JFrame {
     private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
         if (petSelecionado != null) {
         
-        // 1. Obtém o usuário logado
+        // Obtém o usuário logado ->
         User usuario = GerenciadorUsuario.getInstance().getUsuarioLogado();
         
         if (usuario != null) {
-            // 2. Associa o Pet criado ao usuário
-            usuario.setStudentPet(petSelecionado);
+            // Associa o Pet criado ao usuário ->
             
+            usuario.setStudentPet(petSelecionado);          
             JOptionPane.showMessageDialog(this, 
                 "Seu Pet " + petSelecionado.getName() + " foi escolhido! Comece a estudar.", 
                 "Escolha Finalizada", JOptionPane.INFORMATION_MESSAGE);
 
-            // 3. Fecha esta tela e abre a TelaPet para exibição (ou a tela principal)
-            this.dispose();
+            // Fecha esta tela e abre a TelaPet ->
             
+            this.dispose();
             TelaPet telaPet = new TelaPet();
             telaPet.setVisible(true);
             
@@ -229,7 +222,6 @@ public class TelaEscolherPet extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro: Não há usuário logado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     } else {
-        // Isso não deve acontecer se btnEscolher estiver desabilitado, mas é uma garantia
         JOptionPane.showMessageDialog(this, "Por favor, selecione um Pet.", "Atenção", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnChooseActionPerformed
@@ -246,9 +238,6 @@ public class TelaEscolherPet extends javax.swing.JFrame {
         selecionarPet("Yami");
     }//GEN-LAST:event_btnYamiActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         
     }

@@ -18,6 +18,7 @@ public abstract class Pet implements Animal{
     }
     
 // Método Adicionar XP ->
+    
     public void addXp(int xpGanho) {
         this.xp += xpGanho;
         calculateGrow(this.xp); 

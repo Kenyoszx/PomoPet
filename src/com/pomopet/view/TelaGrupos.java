@@ -13,7 +13,8 @@ public class TelaGrupos extends javax.swing.JFrame {
     final String URL_DESTINO = "https://bit.ly/m/PomoPets";
     
     public final void recarregarLista() {
-        // Recarrega a exibição da Lista
+        // Recarrega a exibição da Lista ->
+        
         List<Grupo> grupos = GerenciadorGrupos.getInstance().getListaDeGrupos();
         DefaultListModel<Grupo> novoModelo = new DefaultListModel<>();
         for (Grupo grupo : grupos) {
@@ -217,14 +218,14 @@ public class TelaGrupos extends javax.swing.JFrame {
 
     private void btnRmvGrpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRmvGrpActionPerformed
 
-        // Selecionar Grupo
+        // Seleciona o Grupo ->
         Grupo grupoSelecionado = (Grupo) lstGrupos.getSelectedValue();
         if (grupoSelecionado == null) {
             JOptionPane.showMessageDialog(this, "Por favor, selecione um grupo para excluir.", "Nenhuma Seleção", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Confirmar a exclusão 
+        // Confirma a exclusão ->
         int confirmacao = JOptionPane.showConfirmDialog(
             this, 
             "Tem certeza que deseja excluir o grupo '" + grupoSelecionado.getGroupName() + "'?", 
@@ -232,15 +233,12 @@ public class TelaGrupos extends javax.swing.JFrame {
             JOptionPane.YES_NO_OPTION
         );
 
-        // 4. Executar a exclusão se o usuário confirmou
+        // Executa a exclusão caso o usuário confirme ->
         if (confirmacao == JOptionPane.YES_OPTION) {
             try {
-                // Remove o grupo do Singleton
+               
                 GerenciadorGrupos.getInstance().rmvGroup(grupoSelecionado);
-
-                // Recarrega a lista para atualizar a JList na tela
                 recarregarLista(); 
-
                 JOptionPane.showMessageDialog(this, "Grupo '" + grupoSelecionado.getGroupName()+ "' excluído com sucesso.", "Exclusão Concluída", JOptionPane.INFORMATION_MESSAGE);
 
             } catch (Exception e) {
@@ -280,35 +278,8 @@ public class TelaGrupos extends javax.swing.JFrame {
         lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
     }//GEN-LAST:event_lblLinkWebsiteMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaGrupos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaGrupos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaGrupos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaGrupos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaGrupos().setVisible(true);

@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Grupo {
+
+// Atributos ->    
+    
     private String groupName;
     private boolean streak;
     private int timeTarget;
@@ -64,6 +67,8 @@ public class Grupo {
     public void setMembers(List<Student> members) {
         this.members = members;
     }
+    
+    //Sobreposição do toString() ->
     
     @Override
     public String toString() {

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorGrupos {
-    // Instância Única (Singleton)
+    // Instância
     private static GerenciadorGrupos instancia;
     
     // Armazenamento dos dados (Lista de Students)
-    private List<Grupo> groupList;
+    private final List<Grupo> groupList;
 
     // Construtor 
     private GerenciadorGrupos() {
@@ -23,12 +23,12 @@ public class GerenciadorGrupos {
         return instancia;
     }
 
-    // Métodos de Adicionar
+    // Método de Adicionar
     public void addGroup(Grupo newGroup) {
         groupList.add(newGroup);
     }
     
-    // Métodos de Remover
+    // Método de Remover
 public void rmvGroup(Grupo grupo) {
         groupList.remove(grupo);
 }

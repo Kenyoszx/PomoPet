@@ -232,31 +232,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_GruposButtonActionPerformed
 
     private void PetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PetButtonActionPerformed
-        // 1. Obter o Usuário Logado
-    User usuario = GerenciadorUsuario.getInstance().getUsuarioLogado();
+        // Obtém o Usuário Logado ->
     
-    if (usuario == null) {
-        // Isso não deveria acontecer se o login for obrigatório
-        JOptionPane.showMessageDialog(this, "Erro: Nenhum usuário está logado.", "Atenção", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    
-    // 2. Lógica de Decisão: O Pet existe?
-    if (usuario.getStudentPet()== null) {
+        User usuario = GerenciadorUsuario.getInstance().getUsuarioLogado();
+        if (usuario == null) {
+            JOptionPane.showMessageDialog(this, "Erro: Nenhum usuário está logado.", "Atenção", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
-        // Abre a Tela de Escolha de Pet
-        TelaEscolherPet telaEscolherPet = new TelaEscolherPet();
-        telaEscolherPet.setVisible(true);
-        this.dispose();
-        
-    } else {
+        // Abre a Tela de Escolha de Pet ->
 
-        // Abre a Tela de Exibição do Pet
-        TelaPet telaExibicao = new TelaPet();
-        telaExibicao.setVisible(true);
-        telaExibicao.atualizarExibicaoPet(); 
-        this.dispose();
-    }
+        if (usuario.getStudentPet()== null) {
+            TelaEscolherPet telaEscolherPet = new TelaEscolherPet();
+            telaEscolherPet.setVisible(true);
+            this.dispose();
+        } else {
+        // Abre a Tela de Exibição do Pet ->
+            TelaPet telaExibicao = new TelaPet();
+            telaExibicao.setVisible(true);
+            telaExibicao.atualizarExibicaoPet(); 
+            this.dispose();
+        }
     }//GEN-LAST:event_PetButtonActionPerformed
 
     private void lblLinkWebsiteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseClicked
@@ -291,30 +287,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLinkWebsiteMouseExited
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaPrincipal().setVisible(true);

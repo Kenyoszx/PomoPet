@@ -12,18 +12,14 @@ public class TelaAmigos extends javax.swing.JFrame {
     
     public TelaAmigos() {
         initComponents();
-    // Acessa a instância do Gerenciador de Dados
+    // Acessa a instância e cria o modelo ->
         GerenciadorAmigos dados = GerenciadorAmigos.getInstance();
-
-    // Cria o DefaultListModel a partir da lista de dados do Gerenciador
         DefaultListModel<String> listaAmigosModel = new DefaultListModel<>();
 
-    // Adiciona todos os nomes que já foram salvos
+    // Adiciona todos os nomes que já foram salvos e atribui o modelo à lista ->
         for (String nome : dados.getListaDeNomes()) {
             listaAmigosModel.addElement(nome);
         }
-
-    // Associa o novo modelo à lista
         lstAmigos.setModel(listaAmigosModel);
         
     }
@@ -210,7 +206,7 @@ public class TelaAmigos extends javax.swing.JFrame {
 
     private void btnAdcAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdcAmigoActionPerformed
        
-    // Abre a janela de diálogo para entrada de texto
+    // Abre a janela de diálogo ->
         String novoNome = javax.swing.JOptionPane.showInputDialog(
             this, 
             "Digite o nome do novo Amigo:", 
@@ -218,7 +214,7 @@ public class TelaAmigos extends javax.swing.JFrame {
             javax.swing.JOptionPane.PLAIN_MESSAGE
         );
         
-    // Adiciona o nome à lista global e atualiza o Modelo da lista
+    // Adiciona o nome à lista global e atualiza o Modelo da lista ->
         if (novoNome != null && !novoNome.trim().isEmpty()) {
             GerenciadorAmigos.getInstance().adicionarAmigo(novoNome);
             DefaultListModel<String> model = (DefaultListModel<String>) lstAmigos.getModel();
@@ -227,25 +223,25 @@ public class TelaAmigos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdcAmigoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        //Volta pra tela anterior ->
         TelaPrincipal telaPrincipal = new TelaPrincipal();
         telaPrincipal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnRmvAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRmvAmigoActionPerformed
+    
+        int selectedIndex = lstAmigos.getSelectedIndex();// Obtém o índice do item selecionado na Lista 
+        if (selectedIndex != -1) { // Verifica se algum item está realmente selecionado
+
+        // Acessa o modelo da lista e remove o item do modelo e do gerennciador de dados ->
         
-    // Obtém o índice do item selecionado na JList
-        int selectedIndex = lstAmigos.getSelectedIndex();
-
-    // Verifica se algum item está realmente selecionado
-        if (selectedIndex != -1) { 
-
-    // Acessa o modelo da lista e remove o item do modelo e do gerennciador de dados
             DefaultListModel<String> model = (DefaultListModel<String>) lstAmigos.getModel();
             GerenciadorAmigos.getInstance().removerAmigo(selectedIndex);
             model.remove(selectedIndex);
         } else {
-    // Avisa o usuário se nada estiver selecionado
+        // Avisa o usuário se nada estiver selecionado->
+        
             JOptionPane.showMessageDialog(
                 this, 
                 "Selecione um amigo para remover!", 
@@ -286,34 +282,8 @@ public class TelaAmigos extends javax.swing.JFrame {
         lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
     }//GEN-LAST:event_lblLinkWebsiteMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaAmigos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaAmigos().setVisible(true);

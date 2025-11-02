@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorAmigos {
-    // Instância Única (Singleton)
+    // Instância
     private static GerenciadorAmigos instancia;
     
     // Armazenamento dos dados (Lista de Strings)
@@ -23,14 +23,14 @@ public class GerenciadorAmigos {
         return instancia;
     }
 
-    // Métodos de Adicionar
+    // Método de Adicionar
     public void adicionarAmigo(String nome) {
         if (nome != null && !nome.trim().isEmpty()) {
             listaDeNomes.add(nome.trim());
         }
     }
     
-    // Métodos de Remover
+    // Método de Remover
 public void removerAmigo(int index) {
     if (index >= 0 && index < listaDeNomes.size()) {
         listaDeNomes.remove(index);

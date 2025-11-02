@@ -10,8 +10,8 @@ import javax.swing.JOptionPane;
 
 public class TelaAddGrupo extends javax.swing.JFrame {
 
-    private DefaultListModel<String> membrosModel;
-    private TelaGrupos telaPrincipal;
+    private DefaultListModel<String> membrosModel; //modelo pra lista
+    private TelaGrupos telaPrincipal; // variável que armazena a tela anterior
     
     public TelaAddGrupo(TelaGrupos parent) {
         initComponents();
@@ -25,18 +25,16 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     
 
     private void preencherComboBoxAmigos() {
-    // 1. Pega a lista de nomes do GerenciadorAmigos
-    List<String> todosAmigos = GerenciadorAmigos.getInstance().getListaDeNomes();
-    
-    // 2. Limpa o ComboBox (caso seja chamado mais de uma vez)
-    friendListComboBox.removeAllItems();
+   
+    List<String> todosAmigos = GerenciadorAmigos.getInstance().getListaDeNomes(); // Pega a lista de nomes
+    friendListComboBox.removeAllItems(); // Limpa o ComboBox 
 
-    // 3. Adiciona cada nome ao ComboBox
+    // Adiciona cada nome ao ComboBox ->
     for (String nome : todosAmigos) {
         friendListComboBox.addItem(nome);
     }
     
-    // Opcional: Adicionar uma seleção inicial
+    //Adiciona uma seleção inicial ->
     if (friendListComboBox.getItemCount() > 0) {
         friendListComboBox.setSelectedIndex(0);
     }
@@ -195,14 +193,14 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
-        this.dispose();
+        this.dispose(); // fecha a tela
     }//GEN-LAST:event_BackActionPerformed
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
     String nome = txtNomeGrupo.getText();
     int meta;
 
-    // --- 1. VALIDAÇÕES INICIAIS ---
+    // Validações ->
     if (nome.trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "O nome do grupo não pode estar vazio.", "Erro de Validação", JOptionPane.ERROR_MESSAGE);
         return;
@@ -219,7 +217,7 @@ public class TelaAddGrupo extends javax.swing.JFrame {
         return;
     }
     
-    // Converte o DefaultListModel de membros para uma lista para o construtor do Grupo
+    // Converte o modelo da lista de membros para uma lista para o construtor do Grupo
     List<String> membrosDoGrupo = new ArrayList<>();
     for (int i = 0; i < membrosModel.getSize(); i++) {
         membrosDoGrupo.add(membrosModel.getElementAt(i));
@@ -230,25 +228,17 @@ public class TelaAddGrupo extends javax.swing.JFrame {
         return;
     }
 
-    // --- 2. CRIAÇÃO E PERSISTÊNCIA ---
-    
-    // Cria o objeto Grupo com os dados coletados
+    // Criação do Grupo ->
+   
     Grupo novoGrupo = new Grupo(nome, meta, membrosDoGrupo);
-
-    // Adiciona o grupo ao Singleton (Gerenciador de Dados)
     GerenciadorGrupos.getInstance().addGroup(novoGrupo);
+
     
-    // --- 3. ATUALIZAÇÃO E FECHAMENTO ---
-    
-    // Chama o método de recarga na tela principal para atualizar o JList
+    // Atualizar a Lista dá o retorno e fecha a janela ->
     if (telaPrincipal != null) {
         telaPrincipal.recarregarLista();
     }
-    
-    // Exibe mensagem de sucesso (Opcional)
     JOptionPane.showMessageDialog(this, "Grupo '" + nome + "' criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-    // Fecha a janela de criação (JFrame) e libera seus recursos
     this.dispose();
     
     }//GEN-LAST:event_CreateActionPerformed
@@ -258,18 +248,11 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     // Pega o item selecionado no ComboBox
         String amigoSelecionado = (String) friendListComboBox.getSelectedItem();
 
-        if (amigoSelecionado != null) {
-            // Verifica se o amigo já não está na lista (para evitar duplicatas)
-            if (!membrosModel.contains(amigoSelecionado)) {
-                // Adiciona o amigo ao modelo da JList de membros do grupo
-                membrosModel.addElement(amigoSelecionado);
-            }
-
-            // Opcional: Remover o amigo do ComboBox após adição
-            friendListComboBox.removeItem(amigoSelecionado);
-
-            // Opcional: Habilitar o botão "Criar Grupo" apenas se houver 2 ou mais membros
-            // if (membrosModel.getSize() >= 2) { btnCriarGrupo.setEnabled(true); }
+        if (amigoSelecionado != null) {// Verifica se o amigo já não está na lista (para evitar duplicatas)
+            if (!membrosModel.contains(amigoSelecionado)) {               
+                membrosModel.addElement(amigoSelecionado);// Adiciona o amigo ao model
+            }           
+            friendListComboBox.removeItem(amigoSelecionado);//Remove o amigo do ComboBox após adição
         }
     }//GEN-LAST:event_AddActionPerformed
 
@@ -277,9 +260,6 @@ public class TelaAddGrupo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMetaTempoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         
     }

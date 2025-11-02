@@ -2,11 +2,9 @@ package com.pomopet.view;
 
 import com.pomopet.data.User;
 import com.pomopet.data.GerenciadorUsuario;
-import javax.swing.JOptionPane;
 import java.awt.Desktop;
 import java.net.URI;
 import javax.swing.JOptionPane;
-import java.awt.Cursor;
 
 
 public class TelaLogin extends javax.swing.JFrame {
@@ -214,17 +212,15 @@ public class TelaLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-            // 1. Coletar credenciais do formulário
+        // Coleta dados do formulário ->
         String usuarioDigitado = txtUsuario.getText().trim();
-        // JPasswordField deve usar getPassword() e ser convertido para String
         String senhaDigitada = new String(pfSenha.getPassword()); 
 
-        // 2. Obter o usuário cadastrado (Singleton)
+        // Consulta os usuarios cadastrados ->
         User usuarioCadastrado = GerenciadorUsuario.getInstance().getUsuarioLogado();
 
-        // 3. Verificação de Credenciais
-
-        // 3.1. Verifica se algum usuário foi cadastrado
+        // 3. Verificações ->
+        
         if (usuarioCadastrado == null) {
             JOptionPane.showMessageDialog(this, 
                 "Nenhum usuário cadastrado. Por favor, cadastre-se primeiro.", 
@@ -234,14 +230,11 @@ public class TelaLogin extends javax.swing.JFrame {
             return;
         }
 
-        // 3.2. Compara o nome de usuário E a senha
         boolean usuarioCorreto = usuarioDigitado.equals(usuarioCadastrado.getName());
         boolean senhaCorreta = senhaDigitada.equals(usuarioCadastrado.getPassword());
 
-        // Lógica de Autenticação
-        if (usuarioCorreto && senhaCorreta) {
-            // AUTENTICAÇÃO BEM-SUCEDIDA
 
+        if (usuarioCorreto && senhaCorreta) {
             JOptionPane.showMessageDialog(this, 
                 "Login realizado com sucesso! Bem-vindo(a), " + usuarioCadastrado.getName() + "!", 
                 "Sucesso", 
@@ -253,7 +246,6 @@ public class TelaLogin extends javax.swing.JFrame {
         this.dispose();
         
         } else {
-            // AUTENTICAÇÃO FALHOU
             JOptionPane.showMessageDialog(this, 
                 "Nome de usuário ou senha incorretos.", 
                 "Erro de Login", 
@@ -299,34 +291,8 @@ public class TelaLogin extends javax.swing.JFrame {
         lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
     }//GEN-LAST:event_lblLinkWebsiteMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaLogin().setVisible(true);

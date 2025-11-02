@@ -19,11 +19,10 @@ public class TelaPet extends javax.swing.JFrame {
 
 // Método de Atualização Imagem ->
     public void atualizarExibicaoPet() {
-        // 1. Busca o Pet do usuário logado
-        Pet pet = GerenciadorUsuario.getInstance().getUsuarioLogado().getStudentPet();
+        // Busca o Pet do usuário logado
         
+        Pet pet = GerenciadorUsuario.getInstance().getUsuarioLogado().getStudentPet();  
         if (pet == null) {
-            // Se o Pet for null (usuário ainda não escolheu)
             lblStatusPet.setText("Nenhum Pet Escolhido.");
             lblImagemPet.setIcon(null);
             barraXp.setValue(0);
@@ -31,12 +30,11 @@ public class TelaPet extends javax.swing.JFrame {
             return;
         }
         
-        // 2. Define o Status (Nome e XP/Level)
+        // Define o Status (Nome e XP/Level) ->s
         lblStatusPet.setText(pet.getName() + " - XP Total: " + pet.getXp());
         
-        // --- Cálculo e Atualização da Barra de Progresso ---
+        // Cálculo e Atualização da Barra de Progresso ->
         
-        // Para usar a barra, vamos definir os marcos de XP (200, 500, etc.)
         int xpTotal = pet.getXp();
         int xpMarcoAtual = 0;
         int xpProximoMarco = 0;
@@ -48,32 +46,24 @@ public class TelaPet extends javax.swing.JFrame {
             xpMarcoAtual = 200;
             xpProximoMarco = 500;
         } else {
-            // Se o XP for 500 ou mais, você precisará de mais marcos, ou a barra enche
             xpMarcoAtual = 500;
             xpProximoMarco = 999999999;
         }
 
-        // Calcula o progresso dentro do nível atual: (XP Total - XP do Marco Atual)
         int xpNoNivelAtual = xpTotal - xpMarcoAtual;
         int xpNecessarioParaProxMarco = xpProximoMarco - xpMarcoAtual;
         
-        // Define o máximo da barra (o XP necessário para o próximo marco)
         barraXp.setMaximum(xpNecessarioParaProxMarco);
-        // Define o valor atual da barra
         barraXp.setValue(xpNoNivelAtual);
-        
-        // Atualiza o texto da barra
         lblTextoXp.setText("Próxima Evolução: " + xpNoNivelAtual + " / " + xpNecessarioParaProxMarco + " XP");
         
-        // 3. Atualiza a Imagem do Pet (Usando o caminho do Pet)
+        // Atualiza a Imagem do Pet ->
         try {
-            // O caminho da imagem deve ser acessível a partir da execução do projeto
             String caminhoImagem = "src/com/pomopet/resources/" + pet.getImage(); 
-            // O atributo pet.getImage() contém o nome do arquivo (ex: "lumiLevel1.png")
-            
             ImageIcon icon = new ImageIcon(caminhoImagem);
             
-            // Redimensiona a imagem para caber no JLabel (Ajuste os valores)
+            // Redimensiona a imagem para caber no JLabel ->
+            
             Image img = icon.getImage().getScaledInstance(
                     lblImagemPet.getWidth(), 
                     lblImagemPet.getHeight(), 
@@ -287,9 +277,6 @@ public class TelaPet extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {

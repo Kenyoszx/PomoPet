@@ -2,6 +2,8 @@ package com.pomopet.data;
 
 public class Student {
     
+    //Atributos ->
+    
     private String name;
     private double studyTime;
     private boolean studyToday;
@@ -23,6 +25,7 @@ public class Student {
     
     
     // Métodos Getters e Setters ->
+    
     public String getName() {
         return name;
     }
