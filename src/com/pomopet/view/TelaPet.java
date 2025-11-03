@@ -94,10 +94,11 @@ public class TelaPet extends javax.swing.JFrame {
         barraXp = new javax.swing.JProgressBar();
         lblTextoXp = new javax.swing.JLabel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
-        BackBox = new javax.swing.JPanel();
+        ButtonBox = new javax.swing.JPanel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
         btnVoltar = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        btnEvoluir = new javax.swing.JButton();
         Footer = new javax.swing.JPanel();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         lblLinkWebsite = new javax.swing.JLabel();
@@ -157,7 +158,6 @@ public class TelaPet extends javax.swing.JFrame {
         pnlPrincipal.add(filler5);
 
         ProgressBox.setBackground(new java.awt.Color(176, 224, 230));
-        ProgressBox.setAlignmentX(0.5F);
         ProgressBox.setMaximumSize(new java.awt.Dimension(2440, 70));
         ProgressBox.setMinimumSize(new java.awt.Dimension(350, 70));
         ProgressBox.setPreferredSize(new java.awt.Dimension(350, 70));
@@ -180,12 +180,11 @@ public class TelaPet extends javax.swing.JFrame {
 
         pnlPrincipal.add(ProgressBox);
 
-        BackBox.setBackground(new java.awt.Color(176, 224, 230));
-        BackBox.setAlignmentX(0.5F);
-        BackBox.setMaximumSize(new java.awt.Dimension(2440, 70));
-        BackBox.setPreferredSize(new java.awt.Dimension(1280, 70));
-        BackBox.setLayout(new javax.swing.BoxLayout(BackBox, javax.swing.BoxLayout.Y_AXIS));
-        BackBox.add(filler3);
+        ButtonBox.setBackground(new java.awt.Color(176, 224, 230));
+        ButtonBox.setMaximumSize(new java.awt.Dimension(2440, 70));
+        ButtonBox.setPreferredSize(new java.awt.Dimension(1280, 70));
+        ButtonBox.setLayout(new javax.swing.BoxLayout(ButtonBox, javax.swing.BoxLayout.Y_AXIS));
+        ButtonBox.add(filler3);
 
         btnVoltar.setText("Voltar");
         btnVoltar.setAlignmentX(0.5F);
@@ -200,10 +199,25 @@ public class TelaPet extends javax.swing.JFrame {
                 btnVoltarActionPerformed(evt);
             }
         });
-        BackBox.add(btnVoltar);
-        BackBox.add(filler4);
+        ButtonBox.add(btnVoltar);
+        ButtonBox.add(filler4);
 
-        pnlPrincipal.add(BackBox);
+        btnEvoluir.setText("Evoluir");
+        btnEvoluir.setAlignmentX(0.5F);
+        btnEvoluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEvoluir.setDefaultCapable(false);
+        btnEvoluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEvoluir.setMaximumSize(new java.awt.Dimension(150, 50));
+        btnEvoluir.setMinimumSize(new java.awt.Dimension(75, 25));
+        btnEvoluir.setPreferredSize(new java.awt.Dimension(130, 50));
+        btnEvoluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEvoluirActionPerformed(evt);
+            }
+        });
+        ButtonBox.add(btnEvoluir);
+
+        pnlPrincipal.add(ButtonBox);
 
         getContentPane().add(pnlPrincipal, java.awt.BorderLayout.CENTER);
 
@@ -277,6 +291,12 @@ public class TelaPet extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void btnEvoluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEvoluirActionPerformed
+        Pet pet = GerenciadorUsuario.getInstance().getUsuarioLogado().getStudentPet();
+        pet.addXp(100);
+        atualizarExibicaoPet();
+    }//GEN-LAST:event_btnEvoluirActionPerformed
+
     public static void main(String args[]) {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -287,13 +307,14 @@ public class TelaPet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BackBox;
+    private javax.swing.JPanel ButtonBox;
     private javax.swing.JPanel Footer;
     private javax.swing.JPanel Header;
     private javax.swing.JPanel ImageBox;
     private javax.swing.JPanel NomePet;
     private javax.swing.JPanel ProgressBox;
     private javax.swing.JProgressBar barraXp;
+    private javax.swing.JButton btnEvoluir;
     private javax.swing.JButton btnVoltar;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;

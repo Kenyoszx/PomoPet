@@ -107,7 +107,6 @@ private boolean isDataValida(String dataStr) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 675));
-        setPreferredSize(new java.awt.Dimension(1280, 800));
 
         Header.setBackground(new java.awt.Color(51, 51, 51));
         Header.setMaximumSize(new java.awt.Dimension(32767, 50));
@@ -216,18 +215,22 @@ private boolean isDataValida(String dataStr) {
         jLabel9.setText("Gênero: ");
         RadioSection.add(jLabel9);
 
+        rbMasculino.setBackground(new java.awt.Color(240, 255, 240));
         bgrGender.add(rbMasculino);
         rbMasculino.setText("Masculino");
         RadioSection.add(rbMasculino);
 
+        rbFeminino.setBackground(new java.awt.Color(240, 255, 240));
         bgrGender.add(rbFeminino);
         rbFeminino.setText("Feminino");
         RadioSection.add(rbFeminino);
 
+        rbNaoBinario.setBackground(new java.awt.Color(240, 255, 240));
         bgrGender.add(rbNaoBinario);
         rbNaoBinario.setText("Não Binário");
         RadioSection.add(rbNaoBinario);
 
+        rbPrefiroNaoDizer.setBackground(new java.awt.Color(240, 255, 240));
         bgrGender.add(rbPrefiroNaoDizer);
         rbPrefiroNaoDizer.setText("Prefiro não dizer");
         rbPrefiroNaoDizer.addActionListener(new java.awt.event.ActionListener() {
@@ -245,9 +248,9 @@ private boolean isDataValida(String dataStr) {
 
         btnCadastro.setBackground(new java.awt.Color(255, 140, 0));
         btnCadastro.setText("Concluir Cadastro");
-        btnCadastro.setMaximumSize(new java.awt.Dimension(130, 40));
-        btnCadastro.setMinimumSize(new java.awt.Dimension(130, 40));
-        btnCadastro.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnCadastro.setMaximumSize(new java.awt.Dimension(150, 40));
+        btnCadastro.setMinimumSize(new java.awt.Dimension(150, 40));
+        btnCadastro.setPreferredSize(new java.awt.Dimension(150, 40));
         btnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroActionPerformed(evt);

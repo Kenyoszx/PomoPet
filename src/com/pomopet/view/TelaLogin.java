@@ -138,9 +138,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
         btnLogin.setBackground(new java.awt.Color(255, 140, 0));
         btnLogin.setText("Login");
-        btnLogin.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLogin.setMinimumSize(new java.awt.Dimension(70, 30));
-        btnLogin.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLogin.setAlignmentX(0.5F);
+        btnLogin.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnLogin.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnLogin.setPreferredSize(new java.awt.Dimension(120, 40));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -150,9 +151,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
         btnCadastro.setBackground(new java.awt.Color(255, 140, 0));
         btnCadastro.setText("Cadastre-se");
-        btnCadastro.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnCadastro.setMinimumSize(new java.awt.Dimension(90, 30));
-        btnCadastro.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnCadastro.setAlignmentX(0.5F);
+        btnCadastro.setMaximumSize(new java.awt.Dimension(120, 40));
+        btnCadastro.setMinimumSize(new java.awt.Dimension(120, 40));
+        btnCadastro.setPreferredSize(new java.awt.Dimension(120, 40));
         btnCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastroActionPerformed(evt);
