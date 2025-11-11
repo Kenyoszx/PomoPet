@@ -46,6 +46,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(176, 224, 230));
         setMinimumSize(new java.awt.Dimension(900, 675));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Header.setBackground(new java.awt.Color(51, 51, 51));
         Header.setMaximumSize(new java.awt.Dimension(2440, 50));
@@ -285,6 +290,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void lblLinkWebsiteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLinkWebsiteMouseExited
         lblLinkWebsite.setText("Desenvolvido por PomoPets ©");
     }//GEN-LAST:event_lblLinkWebsiteMouseExited
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // Salva todos os dados antes de fechar o programa ->       
+            GerenciadorUsuario.getInstance().salvarDados();
+            System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

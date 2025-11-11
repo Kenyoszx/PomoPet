@@ -1,9 +1,9 @@
 package com.pomopet.view;
 
+import com.pomopet.data.GerenciadorUsuario;
+import com.pomopet.data.Grupo;
 import java.awt.Desktop;
 import java.net.URI;
-import com.pomopet.data.GerenciadorGrupos;
-import com.pomopet.data.Grupo;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
 public class TelaGrupos extends javax.swing.JFrame {
     
     final String URL_DESTINO = "https://bit.ly/m/PomoPets";
+    private GerenciadorUsuario dadosUsuario = GerenciadorUsuario.getInstance();
     
     public final void recarregarLista() {
-        // Recarrega a exibição da Lista ->
-        
-        List<Grupo> grupos = GerenciadorGrupos.getInstance().getListaDeGrupos();
+        // Recarrega a exibição da Lista ->     
+        List<Grupo> grupos = dadosUsuario.getUsuarioLogado().getGroupList();
         DefaultListModel<Grupo> novoModelo = new DefaultListModel<>();
         for (Grupo grupo : grupos) {
             novoModelo.addElement(grupo);
@@ -237,7 +237,7 @@ public class TelaGrupos extends javax.swing.JFrame {
         if (confirmacao == JOptionPane.YES_OPTION) {
             try {
                
-                GerenciadorGrupos.getInstance().rmvGroup(grupoSelecionado);
+                dadosUsuario.getUsuarioLogado().rmvGroup(grupoSelecionado);
                 recarregarLista(); 
                 JOptionPane.showMessageDialog(this, "Grupo '" + grupoSelecionado.getGroupName()+ "' excluído com sucesso.", "Exclusão Concluída", JOptionPane.INFORMATION_MESSAGE);
 

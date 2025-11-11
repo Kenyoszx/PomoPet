@@ -355,9 +355,9 @@ private boolean isDataValida(String dataStr) {
     //Instancia o Objeto e faz o Cadastro ->
     
         User novoUsuario = new User(usuario, email, senha, dataNascimento, genero);
-        GerenciadorUsuario.getInstance().setUsuarioLogado(novoUsuario);
+        GerenciadorUsuario.getInstance().cadastrarUsuario(novoUsuario);
         JOptionPane.showMessageDialog(this, "Cadastro concluído com sucesso! Bem-vindo(a) " + novoUsuario.getName() + "!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        System.out.println("Usuário cadastrado: " + GerenciadorUsuario.getInstance().getUsuarioLogado().getName());
+        System.out.println("Usuário cadastrado: " + novoUsuario.getName());
         
     //Retorna para a tela de login ->
     

@@ -1,28 +1,31 @@
 package com.pomopet.data;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Grupo {
+public class Grupo implements Serializable {
 
 // Atributos ->    
     
+    private static final long serialVersionUID = 1L;
     private String groupName;
     private boolean streak;
     private int timeTarget;
     private int membershipCount;
-    private List<Student> members;
+    private List<User> members;
 
 // Construtor ->
     
-    public Grupo(String groupName, int timeTarget,List<String> nomeDosMembros) {
+    public Grupo(String groupName, int timeTarget,List<User> Membros) {
         this.groupName = groupName;
         this.streak = false;
         this.timeTarget = timeTarget;
         this.members = new ArrayList<>();
-        for (String nomeDoMembro : nomeDosMembros) {
-            Student newStudent = new Student(nomeDoMembro);
-            this.members.add(newStudent);
+        for (User membro : Membros) {
+            this.members.add(membro);
         }
+        this.membershipCount = members.size();
     }
     
     
@@ -60,11 +63,11 @@ public class Grupo {
         this.membershipCount = membershipCount;
     }
 
-    public List<Student> getMembers() {
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<Student> members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
     

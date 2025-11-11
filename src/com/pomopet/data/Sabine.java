@@ -2,6 +2,10 @@ package com.pomopet.data;
 
 public class Sabine extends Pet{
     
+    // Atributos ->
+    
+    private static final long serialVersionUID = 1L;
+    
     // Construtor ->
     
     public Sabine(){

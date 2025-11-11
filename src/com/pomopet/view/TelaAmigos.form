@@ -179,20 +179,7 @@
                           <Font name="Comic Sans MS" size="18" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="12">
-                            <StringItem index="0" value="Fulano"/>
-                            <StringItem index="1" value="Ciclano"/>
-                            <StringItem index="2" value="Beltrano"/>
-                            <StringItem index="3" value="Deltrano"/>
-                            <StringItem index="4" value="Jorginho"/>
-                            <StringItem index="5" value="Aristofanes"/>
-                            <StringItem index="6" value="Maria Alice"/>
-                            <StringItem index="7" value="Milenyo Terranova"/>
-                            <StringItem index="8" value="Lysa"/>
-                            <StringItem index="9" value="Ana L&#xed;llia"/>
-                            <StringItem index="10" value=" "/>
-                            <StringItem index="11" value=" "/>
-                          </StringArray>
+                          <StringArray count="0"/>
                         </Property>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                           <Color id="Hand Cursor"/>
@@ -201,7 +188,7 @@
                         <Property name="visibleRowCount" type="int" value="4"/>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;User&gt;"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>

@@ -1,29 +1,40 @@
 package com.pomopet.view;
 
+import com.pomopet.data.User;
+import com.pomopet.data.GerenciadorUsuario;
 import java.awt.Desktop;
 import java.net.URI;
-import com.pomopet.data.GerenciadorAmigos;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import java.util.List;
 
 public class TelaAmigos extends javax.swing.JFrame {
     
     final String URL_DESTINO = "https://bit.ly/m/PomoPets";
+    GerenciadorUsuario dadosUsuarios = GerenciadorUsuario.getInstance();
+    
     
     public TelaAmigos() {
         initComponents();
-    // Acessa a instância e cria o modelo ->
-        GerenciadorAmigos dados = GerenciadorAmigos.getInstance();
-        DefaultListModel<String> listaAmigosModel = new DefaultListModel<>();
-
-    // Adiciona todos os nomes que já foram salvos e atribui o modelo à lista ->
-        for (String nome : dados.getListaDeNomes()) {
-            listaAmigosModel.addElement(nome);
-        }
-        lstAmigos.setModel(listaAmigosModel);
-        
+        carregarListaAmigos();
     }
-
+    
+    void carregarListaAmigos(){
+        
+        User usuarioLogado = dadosUsuarios.getUsuarioLogado();
+        List <User> amigos = usuarioLogado.getFriendList();
+        
+        //cria o modelo da lista -> 
+        DefaultListModel<User> listaAmigosModel = new DefaultListModel<>();
+        
+        // Adiciona todos os nomes que já foram salvos e atribui o modelo à lista ->
+        
+        for (User amigo : amigos) {
+            listaAmigosModel.addElement(amigo);
+        }
+        
+        lstAmigos.setModel(listaAmigosModel);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,11 +112,6 @@ public class TelaAmigos extends javax.swing.JFrame {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         lstAmigos.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        lstAmigos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Fulano", "Ciclano", "Beltrano", "Deltrano", "Jorginho", "Aristofanes", "Maria Alice", "Milenyo Terranova", "Lysa", "Ana Líllia", " ", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lstAmigos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lstAmigos.setVerifyInputWhenFocusTarget(false);
         lstAmigos.setVisibleRowCount(4);
@@ -205,7 +211,6 @@ public class TelaAmigos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdcAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdcAmigoActionPerformed
-       
     // Abre a janela de diálogo ->
         String novoNome = javax.swing.JOptionPane.showInputDialog(
             this, 
@@ -214,12 +219,25 @@ public class TelaAmigos extends javax.swing.JFrame {
             javax.swing.JOptionPane.PLAIN_MESSAGE
         );
         
-    // Adiciona o nome à lista global e atualiza o Modelo da lista ->
-        if (novoNome != null && !novoNome.trim().isEmpty()) {
-            GerenciadorAmigos.getInstance().adicionarAmigo(novoNome);
-            DefaultListModel<String> model = (DefaultListModel<String>) lstAmigos.getModel();
-            model.addElement(novoNome.trim()); 
+    // Verifica se o nome está na lista de Usuarios Cadastrados ->
+        if(novoNome != null && !novoNome.isEmpty()){    
+           User amigoParaAdicionar = dadosUsuarios.buscarUsuarioPorNome(novoNome);
+           
+            if (amigoParaAdicionar != null) {
+                boolean sucesso = dadosUsuarios.getUsuarioLogado().adicionarAmigo(amigoParaAdicionar);
+                 
+                if (sucesso) {
+                    JOptionPane.showMessageDialog(this, amigoParaAdicionar.getName() + " adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    carregarListaAmigos(); 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha na adição (usuário inválido ou já adicionado).", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+            // Caso o usuário não seja encontrado ->
+                JOptionPane.showMessageDialog(this, "Usuário '" + novoNome + "' não encontrado no sistema.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
+        
     }//GEN-LAST:event_btnAdcAmigoActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -233,15 +251,31 @@ public class TelaAmigos extends javax.swing.JFrame {
     
         int selectedIndex = lstAmigos.getSelectedIndex();// Obtém o índice do item selecionado na Lista 
         if (selectedIndex != -1) { // Verifica se algum item está realmente selecionado
-
-        // Acessa o modelo da lista e remove o item do modelo e do gerennciador de dados ->
-        
-            DefaultListModel<String> model = (DefaultListModel<String>) lstAmigos.getModel();
-            GerenciadorAmigos.getInstance().removerAmigo(selectedIndex);
-            model.remove(selectedIndex);
+            // Obtém o usuário logado, a lista de amigos, e o amigo selecionado ->
+            
+            User usuarioLogado = GerenciadorUsuario.getInstance().getUsuarioLogado();
+            List<User> amigos = usuarioLogado.getFriendList();
+            User amigoSelecionado = lstAmigos.getSelectedValue();
+            
+            // Remove o amigo da lista de amigos do usuario e o usuario da lista do amigo ->
+              
+            if(!amigoSelecionado.equals(usuarioLogado)){
+                User amigoRemovido = amigos.remove(selectedIndex); 
+                amigoRemovido.getFriendList().remove(usuarioLogado);
+                dadosUsuarios.salvarDados();
+                JOptionPane.showMessageDialog(this, amigoRemovido.getName() + " removido dos amigos.", "Removido", JOptionPane.INFORMATION_MESSAGE);
+                carregarListaAmigos(); 
+            } else {
+                // Caso tente remover a si mesmo ->
+                JOptionPane.showMessageDialog(
+                this, 
+                "Não é possivel remover a si mesmo!", 
+                "Remoção inválida", 
+                JOptionPane.WARNING_MESSAGE
+                );
+            }     
         } else {
-        // Avisa o usuário se nada estiver selecionado->
-        
+        // Avisa o usuário se nada estiver selecionado->     
             JOptionPane.showMessageDialog(
                 this, 
                 "Selecione um amigo para remover!", 
@@ -312,6 +346,6 @@ public class TelaAmigos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLinkWebsite;
-    private javax.swing.JList<String> lstAmigos;
+    private javax.swing.JList<User> lstAmigos;
     // End of variables declaration//GEN-END:variables
 }

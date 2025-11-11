@@ -218,44 +218,33 @@ public class TelaLogin extends javax.swing.JFrame {
         String usuarioDigitado = txtUsuario.getText().trim();
         String senhaDigitada = new String(pfSenha.getPassword()); 
 
-        // Consulta os usuarios cadastrados ->
-        User usuarioCadastrado = GerenciadorUsuario.getInstance().getUsuarioLogado();
-
-        // 3. Verificações ->
-        
-        if (usuarioCadastrado == null) {
+        // Verifica se os dados foram preenchidos ->
+        if (usuarioDigitado.isEmpty() || senhaDigitada.isEmpty()) {
             JOptionPane.showMessageDialog(this, 
-                "Nenhum usuário cadastrado. Por favor, cadastre-se primeiro.", 
-                "Erro de Login", 
-                JOptionPane.WARNING_MESSAGE
-            );
-            return;
+                "Usuário e senha devem ser preenchidos.", 
+                "Erro de Login", JOptionPane.WARNING_MESSAGE);
+            return; 
         }
-
-        boolean usuarioCorreto = usuarioDigitado.equals(usuarioCadastrado.getName());
-        boolean senhaCorreta = senhaDigitada.equals(usuarioCadastrado.getPassword());
-
-
-        if (usuarioCorreto && senhaCorreta) {
-            JOptionPane.showMessageDialog(this, 
-                "Login realizado com sucesso! Bem-vindo(a), " + usuarioCadastrado.getName() + "!", 
-                "Sucesso", 
-                JOptionPane.INFORMATION_MESSAGE
-            );
         
-        TelaPrincipal telaPrincipal = new TelaPrincipal();
-        telaPrincipal.setVisible(true);
-        this.dispose();
+        // Consulta a lista de usuários ->
+        GerenciadorUsuario gerenciador = GerenciadorUsuario.getInstance();
+        User usuarioLogado = gerenciador.realizarLogin(usuarioDigitado, senhaDigitada);
+
+        // Verifica se existe o usuario que tentou fazer login ->
+        if (usuarioLogado != null) {
+            JOptionPane.showMessageDialog(this, 
+                "Bem-vindo(a), " + usuarioLogado.getName() + "!", 
+                "Login Efetuado", JOptionPane.INFORMATION_MESSAGE);
+        
+            this.dispose();
+            TelaPrincipal telaPrincipal = new TelaPrincipal();
+            telaPrincipal.setVisible(true);
         
         } else {
             JOptionPane.showMessageDialog(this, 
-                "Nome de usuário ou senha incorretos.", 
-                "Erro de Login", 
-                JOptionPane.ERROR_MESSAGE
-            );
-        }
-        
-        
+                "Usuário ou senha inválidos. Tente novamente ou cadastre-se.", 
+                "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
+        }    
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed

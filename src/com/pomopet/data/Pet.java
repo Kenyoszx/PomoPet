@@ -1,9 +1,12 @@
 package com.pomopet.data;
 
-public abstract class Pet implements Animal{
+import java.io.Serializable;
+
+public abstract class Pet implements Animal, Serializable {
     
 // Atributos ->
     
+    private static final long serialVersionUID = 1L;
     private final String name; 
     protected String image;
     protected int petLevel;

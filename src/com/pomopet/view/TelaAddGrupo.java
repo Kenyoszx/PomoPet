@@ -1,8 +1,9 @@
 package com.pomopet.view;
 
-import com.pomopet.data.GerenciadorAmigos;
-import com.pomopet.data.GerenciadorGrupos;
+import com.pomopet.data.User;
+import com.pomopet.data.GerenciadorUsuario;
 import com.pomopet.data.Grupo;
+import com.pomopet.data.SaveService;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -10,8 +11,10 @@ import javax.swing.JOptionPane;
 
 public class TelaAddGrupo extends javax.swing.JFrame {
 
-    private DefaultListModel<String> membrosModel; //modelo pra lista
-    private TelaGrupos telaPrincipal; // variável que armazena a tela anterior
+    private final DefaultListModel<String> membrosModel; //modelo pra lista
+    private final TelaGrupos telaPrincipal; // variável que armazena a tela anterior
+    private GerenciadorUsuario dadosUsuario = GerenciadorUsuario.getInstance();
+    private List<User> todosAmigos = dadosUsuario.getUsuarioLogado().getFriendList();
     
     public TelaAddGrupo(TelaGrupos parent) {
         initComponents();
@@ -25,13 +28,12 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     
 
     private void preencherComboBoxAmigos() {
-   
-    List<String> todosAmigos = GerenciadorAmigos.getInstance().getListaDeNomes(); // Pega a lista de nomes
+  
     friendListComboBox.removeAllItems(); // Limpa o ComboBox 
 
     // Adiciona cada nome ao ComboBox ->
-    for (String nome : todosAmigos) {
-        friendListComboBox.addItem(nome);
+    for (User amigo : todosAmigos) {
+        friendListComboBox.addItem(amigo.getName());
     }
     
     //Adiciona uma seleção inicial ->
@@ -217,7 +219,7 @@ public class TelaAddGrupo extends javax.swing.JFrame {
         return;
     }
     
-    // Converte o modelo da lista de membros para uma lista para o construtor do Grupo
+    // Converte o modelo da lista de membros para uma lista para o construtor do Grupo ->
     List<String> membrosDoGrupo = new ArrayList<>();
     for (int i = 0; i < membrosModel.getSize(); i++) {
         membrosDoGrupo.add(membrosModel.getElementAt(i));
@@ -229,10 +231,20 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     }
 
     // Criação do Grupo ->
-   
-    Grupo novoGrupo = new Grupo(nome, meta, membrosDoGrupo);
-    GerenciadorGrupos.getInstance().addGroup(novoGrupo);
-
+    List <User> membrosDoGrupoList = new ArrayList<>();
+    
+    for (String nomeMembro : membrosDoGrupo) {
+        for (User amigo : todosAmigos) {
+            if (amigo.getName().equals(nomeMembro)){
+                membrosDoGrupoList.add(amigo);
+            }
+        }
+    }
+    
+    Grupo novoGrupo = new Grupo(nome, meta, membrosDoGrupoList);
+    for (User membro : membrosDoGrupoList) {
+        membro.addGroup(novoGrupo);
+    }
     
     // Atualizar a Lista dá o retorno e fecha a janela ->
     if (telaPrincipal != null) {
@@ -240,7 +252,7 @@ public class TelaAddGrupo extends javax.swing.JFrame {
     }
     JOptionPane.showMessageDialog(this, "Grupo '" + nome + "' criado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     this.dispose();
-    
+    dadosUsuario.salvarDados();
     }//GEN-LAST:event_CreateActionPerformed
 
     private void AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddActionPerformed
